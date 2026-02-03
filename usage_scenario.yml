@@ -1,0 +1,25 @@
+name: "SumPy algorithm benchmark"
+author: "Sean"
+description: "Benchmarks one deterministic algorithm and prints R for SCI."
+
+services:
+  workload:
+    type: container
+    image: sumpy-benchmark
+    build:
+      context: .
+      dockerfile: Dockerfile
+    log-stdout: true
+    read-sci-stdout: true
+
+sci:
+  R_d: calculated prime numver
+
+flow:
+  - name: Run benchmark
+    container: workload
+    commands:
+      - type: console
+        command: python /app/benchmark.py
+        log-stdout: true
+        read-sci-stdout: true

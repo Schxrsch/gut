@@ -1,0 +1,33 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-mariadb
+    container_name: gcb-wordpress-mariadb
+    image: gcb_wordpress_mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=somewordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    expose:
+      - 3306
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile-wordpress
+    container_name: gcb-wordpress-apache
+    image: gcb_wordpress_apache
+    expose:
+      - 9875
+    ports:
+      - 9875:9875
+    restart: always
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+    depends_on:
+      - db

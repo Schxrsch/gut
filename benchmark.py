@@ -2,7 +2,7 @@ import time
 import sympy as sp
 
 def build_input():
-    n = 20
+    n = 100
     A = [[0.0] * n for _ in range(n)]
     b = [0.0] * n
     for i in range(n):
@@ -23,7 +23,7 @@ def run_once(A, b):
 def main():
     A, b = build_input()
 
-    repeats = 3  # number of functional units
+    repeats = 10  # number of functional units
 
     checksum = 0.0
     start = time.time()
